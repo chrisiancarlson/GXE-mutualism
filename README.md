@@ -2,3 +2,6 @@
 
 ## Streamlined Analysis
 This file provides, a quick, streamlined version of our mathematical analysis of our model. 
+
+## GXE Symmetric Dispersal
+Comprehensive Mathematica notebook containing full analysis of our model when dispersal is symmetric, and numerical simulations. 
