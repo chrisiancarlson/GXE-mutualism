@@ -1,4 +1,4 @@
-# Supplemental Code for "How Genotype-by-Environment Interactions Maintain Variation in Mutualism" 
+# Supplemental Code for "How Genotype-by-Environment Interactions Maintain Variation in Mutualisms" 
 
 ## Streamlined Analysis.nb
 This file provides a quick and digestible version of the mathematical analysis of our model. 
