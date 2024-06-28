@@ -16,7 +16,7 @@ import csv
 
 def import_Johnson_data():
     # .csvfile is included in supplemental materials. 
-    with open('/Users/chriscarlson/Documents/GXE/fermi-konza-cedar.csv', newline='') as csvfile:
+    with open('/Users/chriscarlson/Documents/GXE/Data/Johnson_data.csv', newline='') as csvfile:
         data = list(csv.reader(csvfile))
 
 
@@ -586,7 +586,7 @@ def Johnson_plants(myco_dict):
     ax4.legend()
     ax4.set_title('GXE Symbiont C')
 
-    fig.supylabel("Shoot dry mass (g)")
+    fig.supylabel("Shoot Dry Mass (g)")
     plt.savefig('/Users/chriscarlson/Documents/GXE/Johnson_plant_norms.png',dpi=600)
     plt.show()
 
@@ -986,7 +986,7 @@ def Henry_flies():
 if __name__ == "__main__":
     myco_dict = import_Johnson_data()
     #Johnson_myccorhizae(myco_dict)
-    #Johnson_plants(myco_dict)
+    Johnson_plants(myco_dict)
     #Ricks_plants()
     #Henry_flies()
 
