@@ -12,3 +12,6 @@ Comprehensive Mathematica notebook containing full analysis of our model when di
 
 ## GXE Asymmetric Payoffs.nb
 Mathematica notebook containing simulations using a version of our model with asymmetric payoffs between genotypes and environments and parameters from [Johnson et al. 2010](https://www.pnas.org/doi/10.1073/pnas.0906710107). 
+
+## GXE Reaction Norms.py
+Python file containing code used to generate reaction norm plots using data from [Johnson et al. 2010](https://www.pnas.org/doi/10.1073/pnas.0906710107), [Ricks et al. 2023](https://www.journals.uchicago.edu/doi/full/10.1086/725393), and [Henry et al. 2020](https://www.biorxiv.org/content/10.1101/2020.09.21.306779v4). This code also contains statistical analysis of pairwise differences in [Johnson et al. 2010](https://www.pnas.org/doi/10.1073/pnas.0906710107). 
