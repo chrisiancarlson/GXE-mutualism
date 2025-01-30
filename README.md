@@ -1,13 +1,7 @@
 # Supplemental Code for "How Genotype-by-Environment Interactions Maintain Variation in Mutualisms" 
 
-## Streamlined Analysis.nb
-This file provides a quick and digestible version of the mathematical analysis of our model. 
-
-## GXE Verbose Analysis.nb
+## GXE Analysis.nb
 Comprehensive Mathematica notebook containing full analysis of our model along with numerical simulations. 
-
-## GXE Asymmetric Payoffs.nb
-Mathematica notebook containing simulations using a version of our model with asymmetric payoffs between genotypes and environments and parameters from [Johnson et al. 2010](https://www.pnas.org/doi/10.1073/pnas.0906710107). 
 
 ## nuismer.nb
 Mathematica notebook containing a brief supplemental analysis contining the same assumptions as the model from Nuismer 2017, chapter 8. 
