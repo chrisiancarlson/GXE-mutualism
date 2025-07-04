@@ -37,7 +37,8 @@ CC BY-SA 4.0 Creative Commons Attribution-ShareAlike 4.0 International
 Please contact Nancy Collins Johnson (Nancy.Johnson@nau.edu) and Gail Wilson (gail.wilson@okstate.edu) to reuse "Johnson_data.csv"
 
 3. Recommended citation for this data/code archive
-n/a 
+
+C.I. Carlson, M.E. Frederickson, & M.M. Osmond. 2013. Data from: How genotype-by-environment interactions can maintain variation in mutualisms. The American Naturalist, Github, https://doi.org/10.5281/zenodo.15809331
 
 ## DATA & CODE FILE OVERVIEW
 This data repository consists of 1 data file, 4 code scripts, and this README document, with the following data and code filenames and variables:
