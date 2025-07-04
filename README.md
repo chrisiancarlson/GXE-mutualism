@@ -27,7 +27,7 @@ See original publications, cited in REFERENCES, below.
 See original publications, cited in REFERENCES, below.
 
 ## F. Funding Sources
-Omitted for double-blind peer review
+This research was supported by Natural Sciences and Engineering Research Council of Canada (NSERC) Discovery Grants to M.E.F. and M.O., a NSERC Discovery Accelerator Supplement to M.E.F., and a University of Toronto Connaught International Scholarship to C.C. 
 
 ## ACCESS INFORMATION
 1. Licenses/restrictions placed on the data or code
