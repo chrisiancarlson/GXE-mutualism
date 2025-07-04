@@ -16,8 +16,8 @@ Christopher I. Carlson, Matthew M. Osmond, Megan E. Frederickson
 "Johnson_data.csv" was provided via email from Nancy Collins Johnson (Nancy.Johnson@nau.edu) and Gail Wilson (gail.wilson@okstate.edu) as original data from the paper listed under REFERENCES, below. 
 
 ## C. Contact information
-Christopher I. Carlson
-25 Willcocks St, Toronto, ON M5S 3B2, Canada
+Christopher I. Carlson, 
+25 Willcocks St, Toronto, ON M5S 3B2, Canada, 
 christopheriancarlson@gmail.com
 
 ## D. Dates of data collection
