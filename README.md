@@ -1,7 +1,7 @@
-# GENERAL INFORMATION
+## GENERAL INFORMATION
 This README.txt file was updated on 21 May 2025
 
-## A. Paper associated with this archive
+### A. Paper associated with this archive
 Citation: C.I. Carlson, M.E. Frederickson, & M.M. Osmond, How genotype-by-environment interactions can maintain variation in mutualisms. The American Naturalist, (2025). 
 
 Brief abstract: 
@@ -10,23 +10,23 @@ Coevolution requires reciprocal genotype-by-genotype (GXG) interactions for fitn
 
 This repository contains the Mathematica notebooks for full analysis of the model and numerical simulations, as well as the original data from a published reciprocal transplant experiment, and R and Python scripts for data analysis and visualization.
 
-## B. Originators
+### B. Originators
 Christopher I. Carlson, Matthew M. Osmond, Megan E. Frederickson
 
 "Johnson_data.csv" was provided via email from Nancy Collins Johnson (Nancy.Johnson@nau.edu) and Gail Wilson (gail.wilson@okstate.edu) as original data from the paper listed under REFERENCES, below. 
 
-## C. Contact information
+### C. Contact information
 Christopher I. Carlson, 
 25 Willcocks St, Toronto, ON M5S 3B2, Canada, 
 christopheriancarlson@gmail.com
 
-## D. Dates of data collection
+### D. Dates of data collection
 See original publications, cited in REFERENCES, below.
 
-## E. Geographic Location(s) of data collection
+### E. Geographic Location(s) of data collection
 See original publications, cited in REFERENCES, below.
 
-## F. Funding Sources
+### F. Funding Sources
 This research was supported by Natural Sciences and Engineering Research Council of Canada (NSERC) Discovery Grants to M.E.F. and M.O., a NSERC Discovery Accelerator Supplement to M.E.F., and a University of Toronto Connaught International Scholarship to C.C. 
 
 ## ACCESS INFORMATION
