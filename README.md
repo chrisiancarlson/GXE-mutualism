@@ -2,7 +2,7 @@
 This README.txt file was updated on 21 May 2025
 
 ## A. Paper associated with this archive
-Citation: Omitted for double-blind peer review
+Citation: C.I. Carlson, M.E. Frederickson, & M.M. Osmond, How genotype-by-environment interactions can maintain variation in mutualisms. The American Naturalist, (2025). 
 
 Brief abstract: 
 
