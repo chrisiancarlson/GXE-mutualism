@@ -17,9 +17,7 @@ Christopher I. Carlson, Matthew M. Osmond, Megan E. Frederickson
 
 ## C. Contact information
 Christopher I. Carlson
-
 25 Willcocks St, Toronto, ON M5S 3B2, Canada
-
 christopheriancarlson@gmail.com
 
 ## D. Dates of data collection
