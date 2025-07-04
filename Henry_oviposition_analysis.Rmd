@@ -1,0 +1,220 @@
+---
+title: "Henry_fecundity_share"
+output: html_document
+date: "2024-05-17"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+rm(list=ls())
+
+#saving position dodge
+pd<- position_dodge(0.1)
+
+#loading packages
+require(ggplot2)
+require(tidyverse)
+require(car)
+require(DHARMa)
+require(glmmTMB)
+require(lme4)
+require(emmeans)
+require(performance)
+require(dplyr)
+require(glmm)
+
+setwd("/Users/chriscarlson/Documents/GXE/Data")
+ovi.data<- read.table("Henry_aceto_ovidata.csv", sep=",", header=TRUE)
+
+#reorder treatment levels for viz if necessary
+ovi.data$fly.treat_f<- factor(ovi.data$fly.treat, levels = c("C0C", "CCC", "CHSC", 
+                                                              "HS0C", "HSCC", "HSHSC", 
+                                                              "C0HS", "CCHS", "CHSHS", 
+                                                              "HS0HS", "HSCHS", "HSHSHS"))
+
+ovi.data$fly.micro_f<- factor(ovi.data$fly.micro, levels = c("sterile", "control", "high sugar"))
+
+#ovitest was done on two different media, but there was no effect
+ggplot(ovi.data, aes(x=ovi.plate.treat, y=egg.no)) + 
+    geom_boxplot()
+
+wilcox.test(data=ovi.data, egg.no~ovi.plate.treat)
+t.test(data=ovi.data, egg.no~ovi.plate.treat)
+
+#get sample sizes
+ovi.data %>%
+  group_by(fly.geno, fly.micro, fly.food) %>%
+  summarise(n=n())
+
+# remove sterile controls: 
+ovi.data.CIC <- droplevels(ovi.data[!ovi.data$fly.micro_f == 'sterile',])
+
+# remove no eggs controls: 
+ovi.data.CIC <- droplevels(ovi.data.CIC[!ovi.data.CIC$egg.no == 0,])
+
+
+ovi.data.CIC<-ovi.data.CIC[!is.na(ovi.data.CIC$egg.no), ]
+
+ovi.data.CIC
+
+
+#model to include zero dispersion through poisson distribution
+egg.mC<- lm(data=ovi.data.CIC, egg.no ~  (fly.geno * fly.micro_f * fly.food ) )
+summary(egg.mC)
+emmip(egg.mC, fly.micro_f~fly.geno|fly.food,plotit = TRUE)
+emmip(egg.mC, fly.micro_f~fly.geno|fly.food,plotit = FALSE)
+
+#model to include zero dispersion through poisson distribution
+egg.mC<- glmmTMB(data=ovi.data.CIC, egg.no ~  (fly.geno * fly.micro_f * fly.food ) + (1|plate.no), zi=~1, family=poisson)
+summary(egg.mC)
+emmip(egg.mC, fly.micro_f~fly.geno|fly.food, plotit = TRUE)
+
+#visualize histogram of egg counts
+#lots of zeros 
+ggplot(ovi.data, aes(x=egg.no)) + 
+    geom_histogram(binwidth=1) +
+    theme_classic() 
+
+#visualize by histogram
+ggplot(ovi.data, aes(x=egg.no, fill=fly.micro_f)) + 
+  facet_wrap(fly.food~fly.geno) +
+  geom_histogram(aes(color=fly.micro_f), alpha = 0.6, binwidth = 2, position="dodge") + 
+  scale_color_manual(values=c("#fee090", "#99000d", "#91bfdb"), labels = c("sterile", "C Aceto", "HS Aceto")) + 
+  scale_fill_manual(values=c("#fee090", "#99000d", "#91bfdb"), labels = c("sterile", "C Aceto", "HS Aceto")) + 
+  theme_bw() + 
+  theme(panel.grid.major=element_blank(), panel.grid.minor=element_blank()) + 
+  xlab("Egg count") + 
+  ylab("Frequency") + 
+  theme(legend.position = "bottom")
+
+
+#model to include zero dispersion through poisson distribution
+egg.m1<- glmm(data=ovi.data, egg.no ~  (fly.geno * fly.micro_f * fly.food ) + (1|plate.no), zi=~1, family=poisson)
+egg.m1
+summary(egg.m1)
+# intercept is sterile. So I'll also need to drop the sterile treatments, with the reference as C.C.C. estimates are deviations from this. 
+
+#model to include zero dispersion through poisson distribution
+egg.m3<- glmmTMB(data=ovi.data, egg.no ~  (fly.geno * fly.micro_f * fly.food ) , zi=~1, family=poisson)
+egg.m3
+summary(egg.m3)
+#visual interactions through least square means 
+lsmeans3<-emmip(egg.m3, fly.micro_f~fly.food|fly.geno,plotit = FALSE)
+
+
+
+#update constrasts
+egg.m1<- update(egg.m1, contrasts=list(fly.geno="contr.sum", fly.micro_f="contr.sum", fly.food="contr.sum"))
+summary(egg.m1)
+#check dispersions
+#some dispersion but 1.78
+testDispersion(egg.m1)
+#zero inflation is good 
+testZeroInflation(egg.m1)
+
+egg.m1.summary<- summary(egg.m1)
+egg.m1.summary
+
+
+Anova(egg.m1, type="III")
+Anova(egg.m1, type="III")
+
+#check without interactions
+egg.m2<- glmmTMB(data=ovi.data, egg.no ~ (fly.geno + fly.micro_f + fly.food ) + (1|plate.no), zi=~1, family=poisson)
+egg.m2<- update(egg.m2, contrasts=list(fly.geno="contr.sum", fly.micro_f="contr.sum", fly.food="contr.sum"))
+
+#check dispersions
+#no dispersion
+testDispersion(egg.m2)
+#zero inflation is good 
+testZeroInflation(egg.m2)
+summary(egg.m1)
+#stat summary
+summary(egg.m2)
+Anova(egg.m2, type="III")
+
+#compare models
+anova(egg.m1, egg.m2)
+
+#visual interactions through least square means 
+emmip(egg.m1, fly.micro_f~fly.food|fly.geno)
+
+
+
+#save to customize visualization. want diet on a axis 
+m1.emm<- emmip(egg.m1, fly.micro_f~fly.food|fly.geno, CIs = TRUE, plotit=FALSE)
+
+#weird issue with too many geom_s; rename variables 
+levels(m1.emm$fly.micro_f)[levels(m1.emm$fly.micro_f) == "control"] <- "C Aceto"
+levels(m1.emm$fly.micro_f)[levels(m1.emm$fly.micro_f) == "high sugar"] <- "HS Aceto"
+levels(m1.emm$fly.food)[levels(m1.emm$fly.food) == "control diet"] <- "C diet"
+levels(m1.emm$fly.food)[levels(m1.emm$fly.food) == "high sugar diet"] <- "HS diet"
+levels(m1.emm$fly.geno)[levels(m1.emm$fly.geno) == "control fly"] <- "C fly"
+levels(m1.emm$fly.geno)[levels(m1.emm$fly.geno) == "high sugar fly"] <- "HS fly"
+
+#interaction plot 
+ggplot(m1.emm, aes(x=fly.food, y=yvar, group=interaction(fly.geno, fly.micro_f))) + 
+  geom_point(aes(color=fly.micro_f), position=pd, size=2.5) + 
+  geom_line(aes(color=fly.micro_f), position=pd) +
+  facet_wrap(~fly.geno) + 
+  scale_color_manual(values = c("#fee090", "#99000d", "#91bfdb")) + 
+  geom_errorbar(aes(ymin=yvar-SE, ymax=yvar+SE, color=fly.micro_f, width=0.1), position = pd) +
+  theme_bw() + 
+  xlab("") + 
+  ylab("Linear prediction") +
+  ylab("Least square means for fecundity") + 
+  theme(legend.title=element_blank()) + 
+  theme(panel.grid = element_blank()) +
+  theme(legend.position = "none") +
+  ylim(0,3) 
+
+
+#rework tbe interaction plot to go by diet 
+emmip(egg.m1, fly.micro_f~fly.geno|fly.food)
+
+#save to customize visualization. want diet on a axis 
+m1.emmB<- emmip(egg.m1, fly.micro_f~fly.geno|fly.food, CIs = TRUE, plotit=FALSE)
+# In, GXE maintains variation in mutualisms we used the LS Means and SE's from the m1.emmB 
+
+
+# object in the "reaction norms.py" file. 
+m1.emmB
+
+ggplot(m1.emmB, aes(x=fly.geno, y=yvar, group=interaction(fly.geno, fly.micro_f))) + 
+  geom_point(aes(color=fly.micro_f), position=pd, size=2.5) + 
+  geom_line(aes(color=fly.micro_f, group=fly.micro_f), position=pd) +
+  facet_wrap(~fly.food) + 
+  scale_color_manual(values = c("#fee090", "#99000d", "#91bfdb")) + 
+  geom_errorbar(aes(ymin=yvar-SE, ymax=yvar+SE, color=fly.micro_f, width=0.1), position = pd) +
+  theme_bw() + 
+  xlab("") + 
+  ylab("Linear prediction") +
+  ylab("Least square means for fecundity") + 
+  scale_x_discrete(labels = c("control fly" = "C fly", "high sugar fly" = "HS fly")) +
+  theme(legend.title=element_blank()) + 
+  theme(panel.grid = element_blank()) +
+  theme(legend.position = "none") +
+  ylim(0,3) 
+
+
+#################GXE_IN_MUTUALISMS_LINEAR_MODEL_ESTIMATES#########################
+head(ovi.data)
+
+# remove sterile controls: 
+ovi.data.CIC <- droplevels(ovi.data[!ovi.data$fly.micro_f == 'sterile',])
+
+ovi.data.CIC<-ovi.data.CIC[!is.na(ovi.data.CIC$egg.no), ]
+
+#model to include zero dispersion through poisson distribution
+egg.CIC<- glmmTMB(data=ovi.data.CIC, egg.no ~ 0+(fly.geno * fly.micro_f * fly.food ) + (1|plate.no), zi=~1, family=poisson)
+
+summary(egg.CIC)
+
+summary(aov(egg.CIC))
+
+
+
+
+
+```
