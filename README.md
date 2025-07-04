@@ -38,7 +38,7 @@ Please contact Nancy Collins Johnson (Nancy.Johnson@nau.edu) and Gail Wilson (ga
 
 3. Recommended citation for this data/code archive
 
-C.I. Carlson, M.E. Frederickson, & M.M. Osmond. 2013. Data from: How genotype-by-environment interactions can maintain variation in mutualisms. The American Naturalist, Github, https://doi.org/10.5281/zenodo.15809331
+C.I. Carlson, M.E. Frederickson, & M.M. Osmond. 2025. Data from: How genotype-by-environment interactions can maintain variation in mutualisms. The American Naturalist, Github, https://doi.org/10.5281/zenodo.15809331
 
 ## DATA & CODE FILE OVERVIEW
 This data repository consists of 1 data file, 4 code scripts, and this README document, with the following data and code filenames and variables:
